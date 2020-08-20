@@ -1,0 +1,96 @@
+[1;31m
+Start test 1[0m
+The coffee machine has:
+400 of water
+540 of milk
+120 of coffee beans
+9 of disposable cups
+550 of money
+Write action (buy, fill, take):
+> take
+I gave you $550
+The coffee machine has:
+400 of water
+540 of milk
+120 of coffee beans
+9 of disposable cups
+
+0 of money
+[1;31m
+Start test 2[0m
+The coffee machine has:
+400 of water
+540 of milk
+120 of coffee beans
+9 of disposable cups
+550 of money
+Write action (buy, fill, take):
+> buy
+AWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:
+> 1
+The coffee machine has:
+150 of water
+540 of milk
+104 of coffee beans
+8 of disposable cups
+554 of money
+[1;31m
+Start test 3[0m
+The coffee machine has:
+400 of water
+540 of milk
+120 of coffee beans
+9 of disposable cups
+550 of money
+Write action (buy, fill, take):
+> buy
+AWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:
+> 2
+The coffee machine has:
+50 of water
+465 of milk
+100 of coffee beans
+8 of disposable cups
+557 of money
+[1;31m
+Start test 4[0m
+The coffee machine has:
+400 of water
+540 of milk
+120 of coffee beans
+9 of disposable cups
+550 of money
+Write action (buy, fill, take):
+> buy
+AWhat do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:
+> 3
+The coffee machine has:
+200 of water
+440 of milk
+108 of coffee beans
+8 of disposable cups
+556 of money
+[1;31m
+Start test 5[0m
+The coffee machine has:
+400 of water
+540 of milk
+120 of coffee beans
+9 of disposable cups
+550 of money
+Write action (buy, fill, take):
+> fill
+.Write how many ml of water do you want to add:
+> 2001
+-Write how many ml of milk do you want to add:
+> 510
+8Write how many grams of coffee beans do you want to add:
+> 101
+<Write how many disposable cups of coffee do you want to add:
+> 21
+The coffee machine has:
+2401 of water
+1050 of milk
+221 of coffee beans
+30 of disposable cups
+550 of money
