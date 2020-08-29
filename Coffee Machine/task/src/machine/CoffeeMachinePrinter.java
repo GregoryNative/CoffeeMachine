@@ -16,6 +16,10 @@ public class CoffeeMachinePrinter {
         System.out.println(message);
     }
 
+    public void divider() {
+        System.out.println();
+    }
+
     public int askNumber() {
         Scanner scan = new Scanner(System.in);
         int number = scan.nextInt();

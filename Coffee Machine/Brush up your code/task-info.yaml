@@ -372,6 +372,100 @@ files:
         }
     }
   learner_created: false
+- name: src/machine/CoffeeMachineCalculator.java
+  visible: true
+  text: "package machine;\n\nimport java.util.EnumMap;\n\npublic class CoffeeMachineCalculator\
+    \ {\n    public static enum Attribute {\n        WATER,\n        MILK,\n     \
+    \   COFFEE_BEANS\n    }\n\n    private CoffeeMachinePrinter printer;\n\n    private\
+    \ int waterMl;\n    private int milkMl;\n    private int coffeeBeansG;\n\n   \
+    \ public static CoffeeMachineCalculator create(int waterMl, int milkMl, int coffeeBeansG)\
+    \ {\n        return new CoffeeMachineCalculator(waterMl, milkMl, coffeeBeansG);\n\
+    \    }\n\n    public CoffeeMachineCalculator withPrinter(CoffeeMachinePrinter\
+    \ printer) {\n        this.printer = printer;\n\n        return this;\n    }\n\
+    \    \n    public CoffeeMachineCalculator(int waterMl, int milkMl, int coffeeBeansG)\
+    \ {\n       this.waterMl = waterMl;\n       this.milkMl = milkMl;\n       this.coffeeBeansG\
+    \ = coffeeBeansG;\n    }\n\n    public EnumMap<Attribute, Integer> calculate(int\
+    \ cups) {\n        EnumMap<Attribute, Integer> map = new EnumMap<>(Attribute.class);\n\
+    \n        map.put(Attribute.WATER, cups * this.waterMl);\n        map.put(Attribute.MILK,\
+    \ cups * this.milkMl);\n        map.put(Attribute.COFFEE_BEANS, cups * this.coffeeBeansG);\n\
+    \n        return map;\n    }\n\n    public void calculateAndPrint(int cups) {\n\
+    \        EnumMap<Attribute, Integer> map = calculate(cups);\n\n        this.printer.print(\"\
+    For \" + cups + \" cups of coffee you will need:\");\n        this.printer.print(map.get(Attribute.WATER)\
+    \ + \" ml of water\");\n        this.printer.print(map.get(Attribute.MILK) + \"\
+    \ ml of milk\");\n        this.printer.print(map.get(Attribute.COFFEE_BEANS) +\
+    \ \" g of coffee beans\");\n    }\n\n    public void promptNeededForCups() {\n\
+    \        this.printer.print(\"Write how many cups of coffee you will need:\");\n\
+    \n        int countOfCups = this.printer.askNumber();\n\n        calculateAndPrint(countOfCups);\n\
+    \    }\n\n    public boolean calculateIfEnoughResources(CoffeeMachine coffeeMachine,\
+    \ Coffee coffee) {\n        int currentCups = coffeeMachine.getCups();\n     \
+    \   if (currentCups - 1 < 0) {\n            this.printer.print(\"Sorry, not enough\
+    \ cups!\");\n            return false;\n        }\n\n        int currentWater\
+    \ = coffeeMachine.getWaterMl() - coffee.getWater();\n        if (currentWater\
+    \ < 0) {\n            this.printer.print(\"Sorry, not enough water!\");\n    \
+    \        return false;\n        }\n\n        int currentMilk = coffeeMachine.getMilkMl()\
+    \ - coffee.getMilk();\n        if (currentMilk < 0) {\n            this.printer.print(\"\
+    Sorry, not enough milk!\");\n            return false;\n        }\n\n        int\
+    \ currentCoffeeBeans = coffeeMachine.getCoffeeBeansG() - coffee.getCoffee();\n\
+    \        if (currentCoffeeBeans < 0) {\n            this.printer.print(\"Sorry,\
+    \ not enough coffee beans!\");\n            return false;\n        }\n\n     \
+    \   return true;\n    }\n\n    // Getters\n    public int getWaterMl() {\n   \
+    \     return waterMl;\n    }\n\n    public int getMilkMl() {\n        return milkMl;\n\
+    \    }\n\n    public int getCoffeeBeansG() {\n        return coffeeBeansG;\n \
+    \   }\n}"
+  learner_created: true
+- name: src/machine/Coffee.java
+  visible: true
+  text: |
+    package machine;
+
+    public class Coffee {
+        private int water;
+        private int milk;
+        private int coffee;
+        private int money;
+
+        public Coffee(int water, int milk, int coffee, int money) {
+            this.water = water;
+            this.milk = milk;
+            this.coffee = coffee;
+            this.money = money;
+        }
+
+        public int getWater() {
+            return water;
+        }
+
+        public int getMilk() {
+            return milk;
+        }
+
+        public int getCoffee() {
+            return coffee;
+        }
+
+        public int getMoney() {
+            return money;
+        }
+    }
+  learner_created: true
+- name: src/machine/CoffeeFactory.java
+  visible: true
+  text: "package machine;\n\npublic class CoffeeFactory {\n    public static Coffee\
+    \ create(String type) {\n        Coffee coffee;\n\n        switch(type) {\n  \
+    \          case \"espresso\":\n                coffee = new Coffee(250, 0, 16,\
+    \ 4);\n                break;\n            case \"latte\":\n                coffee\
+    \ = new Coffee(350, 75, 20, 7);\n                break;\n            case \"cappuccino\"\
+    :\n                coffee = new Coffee(200, 100, 12, 6);\n                break;\n\
+    \            default:\n                throw new IllegalStateException(\"Unexpected\
+    \ value: \" + type);\n        }\n        \n        return coffee;\n    }\n   \
+    \ \n    public static Coffee create(int type) {\n        String typeName;\n\n\
+    \        switch (type) {\n            case 1:\n                typeName = \"espresso\"\
+    ;\n                break;\n            case 2:\n                typeName = \"\
+    latte\";\n                break;\n            case 3:\n                typeName\
+    \ = \"cappuccino\";\n                break;\n            default:\n          \
+    \      throw new IllegalStateException(\"Unexpected value: \" + type);\n     \
+    \   }\n        \n        return CoffeeFactory.create(typeName);\n    }\n}\n"
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/33/stages/180/implement
 status: Unchecked
 record: -1

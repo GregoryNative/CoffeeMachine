@@ -106,6 +106,8 @@ topics:
     theory_id: 3618
   - title: Constructor
     theory_id: 3535
+  - title: Objects
+    theory_id: 4727
   - title: Instance methods
     theory_id: 3495
   - title: Static members

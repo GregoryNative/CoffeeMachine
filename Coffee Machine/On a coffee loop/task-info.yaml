@@ -454,5 +454,5 @@ files:
     \   }\n        \n        return CoffeeFactory.create(typeName);\n    }\n}\n"
   learner_created: true
 feedback_link: https://hyperskill.org/projects/33/stages/179/implement
-status: Unchecked
-record: -1
+status: Solved
+record: 5

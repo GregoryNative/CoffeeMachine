@@ -14,6 +14,6 @@ public class Application {
                 .withPrinter(printer)
                 .withCalculator(calculator);
 
-        machine.powerOn();
+        machine.startLoop();
     }
 }

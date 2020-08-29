@@ -10,7 +10,9 @@ public class CoffeeMachine {
     public static enum Action {
         BUY("buy"),
         FILL("fill"),
-        TAKE("take");
+        TAKE("take"),
+        REMAINING("remaining"),
+        EXIT("exit");
 
         private final String stringValue;
         Action(final String s) { stringValue = s; }
@@ -28,6 +30,8 @@ public class CoffeeMachine {
 
     private int cups;
     private int money;
+
+    private boolean isExitStarted = false;
 
     public static CoffeeMachine create() {
         return new CoffeeMachine();
@@ -191,10 +195,22 @@ public class CoffeeMachine {
         }
     }
 
-    public void powerOn() {
-        this.printInfo();
+    public void startLoop() {
+        while(true) {
+            this.powerOn();
 
-        this.printer.print("Write action (buy, fill, take):");
+            if (isExitStarted) {
+                break;
+            }
+        }
+    }
+
+    public void powerOn() {
+        String welcomeMessage = String.format(
+            "Write action (%s, %s, %s, %s, %s):",
+            Action.BUY, Action.FILL, Action.TAKE, Action.REMAINING, Action.EXIT
+        );
+        this.printer.print(welcomeMessage);
 
         String action = this.printer.askString();
 
@@ -208,27 +224,45 @@ public class CoffeeMachine {
             case TAKE:
                 this.takeAction();
                 break;
+            case REMAINING:
+                this.remainingAction();
+                break;
+            case EXIT:
+                this.exitAction();
+                break;
         }
     }
 
     private void printInfo() {
+        this.printer.divider();
         this.printer.print("The coffee machine has:");
         this.printer.print(String.valueOf(this.waterMl) + " of water");
         this.printer.print(String.valueOf(this.milkMl) + " of milk");
         this.printer.print(String.valueOf(this.coffeeBeansG) + " of coffee beans");
         this.printer.print(String.valueOf(this.cups) + " of disposable cups");
-        this.printer.print(String.valueOf(this.money) + " of money");
+        this.printer.print("$" + String.valueOf(this.money) + " of money");
+        this.printer.divider();
     }
 
     private void buyAction() {
-        this.printer.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+        this.printer.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu");
 
-        int coffeeType = this.printer.askNumber();
+        String coffeeTypeStr = this.printer.askString();
 
+        if (coffeeTypeStr.equals("back")) {
+
+            return;
+        }
+
+        int coffeeType = Integer.valueOf(coffeeTypeStr);
         if (coffeeType > 0 && coffeeType < 4) {
             Coffee coffee = CoffeeFactory.create(coffeeType);
-            this.makeCoffeeAuto(coffee);
-            this.printInfo();
+
+            if (this.calculator.calculateIfEnoughResources(this, coffee)) {
+                this.printer.print("I have enough resources, making you a coffee!");
+                this.makeCoffeeAuto(coffee);
+            }
+
             return;
         }
 
@@ -251,8 +285,6 @@ public class CoffeeMachine {
         this.printer.print("Write how many disposable cups of coffee do you want to add:");
         int cups = this.printer.askNumber();
         this.setCups(this.getCups() + cups);
-
-        this.printInfo();
     }
 
     private void takeAction() {
@@ -260,8 +292,14 @@ public class CoffeeMachine {
         this.printer.print("I gave you $" + currentMoney);
 
         this.setMoney(0);
+    }
 
+    private void remainingAction() {
         this.printInfo();
+    }
+
+    private void exitAction() {
+        isExitStarted = true;
     }
 
     public void makeCoffeeAuto(Coffee coffee) {
