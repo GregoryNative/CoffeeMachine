@@ -16,15 +16,12 @@ public class Coffee {
     public int getWater() {
         return water;
     }
-
     public int getMilk() {
         return milk;
     }
-
     public int getCoffee() {
         return coffee;
     }
-
     public int getMoney() {
         return money;
     }

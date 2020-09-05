@@ -58,7 +58,7 @@ public class CoffeeMachineCalculator {
         calculateAndPrint(countOfCups);
     }
 
-    public boolean calculateIfEnoughResources(CoffeeMachine coffeeMachine, Coffee coffee) {
+    public boolean calculateIfEnoughResources(CoffeeMachineEngine coffeeMachine, Coffee coffee) {
         int currentCups = coffeeMachine.getCups();
         if (currentCups - 1 < 0) {
             this.printer.print("Sorry, not enough cups!");

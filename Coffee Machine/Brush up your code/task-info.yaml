@@ -57,32 +57,6 @@ files:
     //    }
     }
   learner_created: false
-- name: src/machine/Application.java
-  visible: true
-  text: |
-    package machine;
-
-    public class Application {
-        public static void main(String[] args) {
-    //        CoffeeMachine machine = new CoffeeMachine();
-    //
-    //        machine.makeCoffee();
-
-            System.out.println("Starting to make a coffee");
-            System.out.println("Grinding coffee beans");
-            System.out.println("Boiling water");
-            System.out.println("Mixing boiled water with crushed coffee beans");
-            System.out.println("Pouring some milk into the cup");
-            System.out.println("Coffee is ready!");
-    //        this.printer.print("Starting to make a coffee");
-        }
-        // PRINTER METHODS
-        private static void print(String str) {
-            System.out.println(str);
-        }
-
-    }
-  learner_created: false
 - name: src/machine/CoffeeMachinePrinter.java
   visible: true
   text: |
@@ -466,6 +440,13 @@ files:
     \      throw new IllegalStateException(\"Unexpected value: \" + type);\n     \
     \   }\n        \n        return CoffeeFactory.create(typeName);\n    }\n}\n"
   learner_created: true
+- name: src/machine/CoffeeMachineEngine.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/33/stages/180/implement
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/33/stages/180/implement">JetBrains
+    Academy</a>
+  time: Sat, 05 Sep 2020 11:44:07 UTC
 record: -1

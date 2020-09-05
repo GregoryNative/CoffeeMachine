@@ -10,7 +10,7 @@ public class CoffeeMachinePrinter {
     }
 
     public void print(String str) {
-//        String message = name + ": " + str;
+        // String message = name + ": " + str;
         String message = str;
 
         System.out.println(message);
@@ -22,15 +22,13 @@ public class CoffeeMachinePrinter {
 
     public int askNumber() {
         Scanner scan = new Scanner(System.in);
-        int number = scan.nextInt();
 
-        return number;
+        return scan.nextInt();
     }
 
     public String askString() {
         Scanner scan = new Scanner(System.in);
-        String str = scan.next();
 
-        return str;
+        return scan.next();
     }
 }
