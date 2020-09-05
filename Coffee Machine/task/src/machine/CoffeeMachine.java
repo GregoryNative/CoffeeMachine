@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class CoffeeMachine {
     public static void main(String[] args) {
         CoffeeMachinePrinter printer = new CoffeeMachinePrinter("Delonghi");
-        CoffeeMachineCalculator calculator = CoffeeMachineCalculator
-                .create(200, 50, 15)
+        CoffeeMachineCalculator calculator = new CoffeeMachineCalculator()
                 .withPrinter(printer);
         CoffeeMachineEngine machine = CoffeeMachineEngine
                 .create()
@@ -25,7 +24,6 @@ public class CoffeeMachine {
 
             machine.exec(command);
         }
-
     }
 
     public static Scanner getScanner() {

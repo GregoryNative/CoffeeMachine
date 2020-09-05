@@ -1,7 +1,5 @@
 package machine;
 
-import java.util.EnumMap;
-
 public class CoffeeMachineEngine {
     public static enum State {
         CHOOSE_ACTION,
@@ -33,13 +31,10 @@ public class CoffeeMachineEngine {
     private int waterMl;
     private int milkMl;
     private int coffeeBeansG;
-
     private int cups;
     private int money;
 
     private State state = State.CHOOSE_ACTION;
-
-    private boolean isExitStarted = false;
 
     public static CoffeeMachineEngine create() {
         return new CoffeeMachineEngine();
@@ -84,123 +79,6 @@ public class CoffeeMachineEngine {
         this.calculator = calculator;
 
         return this;
-    }
-
-    // PRIVATE COFFEE MAKER METHODS
-//    private void start() {
-//        print("Starting to make a coffee");
-//    }
-//
-//    private void grind() {
-//        print("Grinding coffee beans");
-//    }
-//
-//    private void boil() {
-//        print("Boiling water");
-//    }
-//
-//    private void mix() {
-//        print("Mixing boiled water with crushed coffee beans");
-//    }
-//
-//    private void pourCoffee() {
-//        print("Pouring coffee into the cup");
-//    }
-//
-//    private void pourMilk() {
-//        print("Pouring some milk into the cup");
-//    }
-//
-//    private void finish() {
-//        print("Coffee is ready!");
-//    }
-
-    private void print(String str) {
-        this.printer.print(str);
-    }
-
-//    public void makeCoffee() {
-//        this.start();
-//        this.grind();
-//        this.boil();
-//        this.mix();
-//        this.pourCoffee();
-//        this.pourMilk();
-//        this.finish();
-//    }
-
-    public void promptNeededForCups() {
-        this.calculator.promptNeededForCups();
-    }
-
-    public void promptIsEnoughForCups() {
-        this.promptAndSetWater();
-        this.promptAndSetMilk();
-        this.promptAndSetCoffeeBeans();
-        this.promptHowManyCupsNeeded();
-    }
-
-    public void promptAndSetWater() {
-        this.printer.print("Write how many ml of water the coffee machine has:");
-
-        int waterMl = this.printer.askNumber();
-
-        setWaterMl(waterMl);
-    }
-
-    public void promptAndSetMilk() {
-        this.printer.print("Write how many ml of milk the coffee machine has:");
-
-        int milkMl = this.printer.askNumber();
-
-        setMilkMl(milkMl);
-    }
-
-    public void promptAndSetCoffeeBeans() {
-        this.printer.print("Write how many ml of coffee beans the coffee machine has:");
-
-        int coffeeBeansG = this.printer.askNumber();
-
-        setCoffeeBeansG(coffeeBeansG);
-    }
-
-    public void promptHowManyCupsNeeded() {
-        this.printer.print("Write how many cups of coffee you will need:");
-
-        int cups = this.printer.askNumber();
-        EnumMap<CoffeeMachineCalculator.Attribute, Integer> map = this.calculator.calculate(cups);
-
-        int waterLeft = this.waterMl;
-        int milkLeft = this.milkMl;
-        int coffeeBeansLeft = this.coffeeBeansG;
-
-        int count = 0;
-        while(true) {
-            waterLeft -= this.calculator.getWaterMl();
-            milkLeft -= this.calculator.getMilkMl();
-            coffeeBeansLeft -= this.calculator.getCoffeeBeansG();
-
-            if (waterLeft < 0 || milkLeft < 0 || coffeeBeansLeft < 0) {
-                break;
-            }
-
-            count++;
-        };
-
-        if (count < cups) {
-            this.printer.print("No, I can make only " + String.valueOf(count) + " cup(s) of coffee");
-            return;
-        }
-
-        if (count > 0 && count == cups) {
-            this.printer.print("Yes, I can make that amount of coffee");
-            return;
-        }
-
-        if (count > cups) {
-            this.printer.print("Yes, I can make that amount of coffee (and even " + String.valueOf(count - cups) + " more than that)");
-            return;
-        }
     }
 
     public void info() {
@@ -293,8 +171,6 @@ public class CoffeeMachineEngine {
         }
     }
 
-
-
     private void printInfo() {
         this.printer.divider();
         this.printer.print("The coffee machine has:");
@@ -325,25 +201,6 @@ public class CoffeeMachineEngine {
         this.printer.divider();
 
         this.state = State.CHOOSE_ACTION;
-//        this.buyAction();
-    }
-
-    private void fillAction() {
-        this.printer.print("Write how many ml of water do you want to add:");
-        int water = this.printer.askNumber();
-        this.setWaterMl(this.getWaterMl() + water);
-
-        this.printer.print("Write how many ml of milk do you want to add:");
-        int milk = this.printer.askNumber();
-        this.setMilkMl(this.getMilkMl() + milk);
-
-        this.printer.print("Write how many grams of coffee beans do you want to add:");
-        int coffee = this.printer.askNumber();
-        this.setCoffeeBeansG(this.getCoffeeBeansG() + coffee);
-
-        this.printer.print("Write how many disposable cups of coffee do you want to add:");
-        int cups = this.printer.askNumber();
-        this.setCups(this.getCups() + cups);
     }
 
     private void takeAction() {
@@ -357,10 +214,6 @@ public class CoffeeMachineEngine {
 
     private void remainingAction() {
         this.printInfo();
-    }
-
-    private void exitAction() {
-        isExitStarted = true;
     }
 
     public void makeCoffeeAuto(Coffee coffee) {
