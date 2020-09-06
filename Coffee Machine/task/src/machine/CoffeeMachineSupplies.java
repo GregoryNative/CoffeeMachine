@@ -13,18 +13,6 @@ public class CoffeeMachineSupplies {
         this.coffeeBeansG = coffeeBeansG;
     }
 
-    public CoffeeMachineSupplies withCups(int cups) {
-        this.cups = cups;
-
-        return this;
-    }
-
-    public CoffeeMachineSupplies withMoney(int money) {
-        this.money = money;
-
-        return this;
-    }
-
     public int getWaterMl() {
         return waterMl;
     }

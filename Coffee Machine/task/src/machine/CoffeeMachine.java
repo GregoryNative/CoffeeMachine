@@ -15,7 +15,7 @@ public class CoffeeMachine {
 
         Scanner scanner = getScanner();
 
-        while(machine.getState() != CoffeeMachineEngine.State.EXIT) {
+        while(machine.getCurrentStateName() != CoffeeMachineEngine.State.EXIT) {
             machine.info();
 
             String command = askString(scanner);

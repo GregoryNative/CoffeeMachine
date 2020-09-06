@@ -1,7 +1,9 @@
 package machine;
 
+import machine.state.*;
+
 public class CoffeeMachineEngine extends CoffeeMachineSupplies {
-    public static enum State {
+    public enum State {
         CHOOSE_ACTION,
         CHOOSE_COFFEE,
         FILL_WATER,
@@ -11,7 +13,7 @@ public class CoffeeMachineEngine extends CoffeeMachineSupplies {
         EXIT;
     }
 
-    public static enum Action {
+    public enum Action {
         BUY("buy"),
         FILL("fill"),
         TAKE("take"),
@@ -27,7 +29,7 @@ public class CoffeeMachineEngine extends CoffeeMachineSupplies {
     private CoffeeMachinePrinter printer;
     private CoffeeMachineCalculator calculator;
 
-    private State state = State.CHOOSE_ACTION;
+    private CoffeeMachineState state = new ChooseActionState(this);
 
     public CoffeeMachineEngine(int waterMl, int milkMl, int coffeeBeansG) {
         super(waterMl, milkMl, coffeeBeansG);
@@ -58,164 +60,31 @@ public class CoffeeMachineEngine extends CoffeeMachineSupplies {
     }
 
     public void info() {
-        switch (state) {
-            case CHOOSE_ACTION:
-                this.welcome();
-                break;
-            case CHOOSE_COFFEE:
-                this.printer.print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu");
-                break;
-            case FILL_WATER:
-                this.printer.print("Write how many ml of water do you want to add:");
-                break;
-            case FILL_MILK:
-                this.printer.print("Write how many ml of milk do you want to add:");
-                break;
-            case FILL_COFFEE_BEANS:
-                this.printer.print("Write how many grams of coffee beans do you want to add:");
-                break;
-            case FILL_CUPS:
-                this.printer.print("Write how many disposable cups of coffee do you want to add:");
-                break;
-        }
+        this.getState().info();
     }
 
     public void exec(String command) {
-        switch (state) {
-            case CHOOSE_ACTION:
-                this.chooseAction(command);
-                break;
-            case CHOOSE_COFFEE:
-                this.buyAction(command);
-                break;
-            case FILL_WATER:
-                int water = Integer.parseInt(command);
-                this.setWaterMl(this.getWaterMl() + water);
-
-                this.setState(State.FILL_MILK);
-                break;
-            case FILL_MILK:
-                int milk = Integer.parseInt(command);
-                this.setMilkMl(this.getMilkMl() + milk);
-
-                this.setState(State.FILL_COFFEE_BEANS);
-                break;
-            case FILL_COFFEE_BEANS:
-                int coffee = Integer.parseInt(command);
-                this.setCoffeeBeansG(this.getCoffeeBeansG() + coffee);
-
-                this.setState(State.FILL_CUPS);
-                break;
-            case FILL_CUPS:
-                int cups = Integer.parseInt(command);
-                this.setCups(this.getCups() + cups);
-
-                this.setState(State.CHOOSE_ACTION);
-                break;
-        }
-    }
-
-    public void welcome() {
-        String welcomeMessage = String.format(
-            "Write action (%s, %s, %s, %s, %s):",
-            CoffeeMachineEngine.Action.BUY,
-            CoffeeMachineEngine.Action.FILL,
-            CoffeeMachineEngine.Action.TAKE,
-            CoffeeMachineEngine.Action.REMAINING,
-            CoffeeMachineEngine.Action.EXIT
-        );
-        this.printer.print(welcomeMessage);
-    }
-
-    public void chooseAction(String action) {
-        switch (CoffeeMachineEngine.Action.valueOf(action.toUpperCase())) {
-            case BUY:
-                this.setState(State.CHOOSE_COFFEE);
-                break;
-            case FILL:
-                this.setState(State.FILL_WATER);
-                break;
-            case TAKE:
-                this.takeAction();
-                break;
-            case REMAINING:
-                this.remainingAction();
-                break;
-            case EXIT:
-                this.exitAction();
-                break;
-        }
-    }
-
-    private void buyAction(String coffeeTypeStr) {
-        if (coffeeTypeStr.equals("back")) {
-            this.setState(State.CHOOSE_ACTION);
-            return;
-        }
-
-        int coffeeType = Integer.parseInt(coffeeTypeStr);
-        if (coffeeType > 0 && coffeeType < 4) {
-            Coffee coffee = CoffeeFactory.create(coffeeType);
-
-            if (this.calculator.calculateIfEnoughResources(this, coffee)) {
-                this.printer.print("I have enough resources, making you a coffee!");
-                this.makeCoffeeAuto(coffee);
-            }
-        }
-
-        this.printer.divider();
-
-        this.setState(State.CHOOSE_ACTION);
-    }
-
-    private void takeAction() {
-        int currentMoney = this.getMoney();
-
-        this.printer.print("I gave you $" + currentMoney);
-        this.printer.divider();
-
-        this.setMoney(0);
-    }
-
-    private void remainingAction() {
-        this.printInfo();
-    }
-
-    private void exitAction() {
-        this.setState(State.EXIT);
-    }
-
-    private void printInfo() {
-        this.printer.divider();
-        this.printer.print("The coffee machine has:");
-        this.printer.print(String.valueOf(this.getWaterMl()) + " of water");
-        this.printer.print(String.valueOf(this.getMilkMl()) + " of milk");
-        this.printer.print(String.valueOf(this.getCoffeeBeansG()) + " of coffee beans");
-        this.printer.print(String.valueOf(this.getCups()) + " of disposable cups");
-        this.printer.print("$" + String.valueOf(this.getMoney()) + " of money");
-        this.printer.divider();
-    }
-
-    public void makeCoffeeAuto(Coffee coffee) {
-        int water = this.getWaterMl();
-        int milk = this.getMilkMl();
-        int coffeeBeans = this.getCoffeeBeansG();
-        int cups = this.getCups();
-        int money = this.getMoney();
-
-        this.setWaterMl(water - coffee.getWater());
-        this.setMilkMl(milk - coffee.getMilk());
-        this.setCoffeeBeansG(coffeeBeans - coffee.getCoffee());
-        this.setCups(cups - 1);
-        this.setMoney(money + coffee.getMoney());
+        this.getState().exec(command);
     }
 
     // Getters/Setters
-    public State getState() {
+    public CoffeeMachineState getState() {
         return this.state;
     }
 
-    public void setState(State state) {
+    public void setState(CoffeeMachineState state) {
         this.state = state;
+    }
+
+    public CoffeeMachineEngine.State getCurrentStateName() {
+        return this.getState().getStateName();
+    }
+
+    public CoffeeMachinePrinter getPrinter() {
+        return this.printer;
+    }
+
+    public CoffeeMachineCalculator getCalculator() {
+        return this.calculator;
     }
 }
