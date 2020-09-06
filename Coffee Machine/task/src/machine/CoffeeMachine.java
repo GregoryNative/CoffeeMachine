@@ -7,9 +7,7 @@ public class CoffeeMachine {
         CoffeeMachinePrinter printer = new CoffeeMachinePrinter("Delonghi");
         CoffeeMachineCalculator calculator = new CoffeeMachineCalculator()
                 .withPrinter(printer);
-        CoffeeMachineEngine machine = CoffeeMachineEngine
-                .create()
-                .withParameters(400, 540, 120)
+        CoffeeMachineEngine machine = new CoffeeMachineEngine(400, 540, 120)
                 .withCups(9)
                 .withMoney(550)
                 .withPrinter(printer)

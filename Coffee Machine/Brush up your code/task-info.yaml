@@ -443,6 +443,24 @@ files:
 - name: src/machine/CoffeeMachineEngine.java
   visible: true
   learner_created: true
+- name: src/machine/CoffeeMachineSupplies.java
+  visible: true
+  learner_created: true
+- name: src/machine/state/ChooseActionState.java
+  visible: true
+  learner_created: true
+- name: src/machine/state/CoffeeMachineState.java
+  visible: true
+  learner_created: true
+- name: src/machine/state/ExitState.java
+  visible: true
+  learner_created: true
+- name: src/machine/translations/en.java
+  visible: true
+  learner_created: true
+- name: src/machine/translations/CoffeeMachineLocale.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/33/stages/180/implement
 status: Solved
 feedback:
