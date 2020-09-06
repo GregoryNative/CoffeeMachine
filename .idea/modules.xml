@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Coffee_Machine.iml" filepath="$PROJECT_DIR$/.idea/modules/Coffee_Machine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Coffee Machine/task/Coffee_Machine.Coffee_Machine-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Coffee Machine/task/Coffee_Machine.Coffee_Machine-task.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Coffee Machine/task/Coffee_Machine.Coffee_Machine-task.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Coffee Machine/task/Coffee_Machine.Coffee_Machine-task.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Coffee Machine/task/Coffee_Machine.Coffee_Machine-task.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Coffee Machine/task/Coffee_Machine.Coffee_Machine-task.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/A simple calculator/Coffee_Machine.Problems-A_simple_calculator.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/A simple calculator/Coffee_Machine.Problems-A_simple_calculator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/A simple calculator/Coffee_Machine.Problems-A_simple_calculator.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/A simple calculator/Coffee_Machine.Problems-A_simple_calculator.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/A simple calculator/Coffee_Machine.Problems-A_simple_calculator.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/A simple calculator/Coffee_Machine.Problems-A_simple_calculator.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Difference of times/Coffee_Machine.Problems-Difference_of_times.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Difference of times/Coffee_Machine.Problems-Difference_of_times.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Difference of times/Coffee_Machine.Problems-Difference_of_times.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Difference of times/Coffee_Machine.Problems-Difference_of_times.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Difference of times/Coffee_Machine.Problems-Difference_of_times.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Difference of times/Coffee_Machine.Problems-Difference_of_times.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/The sum of elements/Coffee_Machine.Problems-The_sum_of_elements.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/The sum of elements/Coffee_Machine.Problems-The_sum_of_elements.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/The sum of elements/Coffee_Machine.Problems-The_sum_of_elements.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/The sum of elements/Coffee_Machine.Problems-The_sum_of_elements.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/The sum of elements/Coffee_Machine.Problems-The_sum_of_elements.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/The sum of elements/Coffee_Machine.Problems-The_sum_of_elements.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Vowel or not/Coffee_Machine.Problems-Vowel_or_not.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Vowel or not/Coffee_Machine.Problems-Vowel_or_not.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Vowel or not/Coffee_Machine.Problems-Vowel_or_not.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Vowel or not/Coffee_Machine.Problems-Vowel_or_not.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Vowel or not/Coffee_Machine.Problems-Vowel_or_not.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Vowel or not/Coffee_Machine.Problems-Vowel_or_not.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Coffee_Machine.util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Coffee_Machine.util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Coffee_Machine.util.main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Coffee_Machine.util.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Coffee_Machine.util.test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Coffee_Machine.util.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HyperSkill Courses2.iml" filepath="$PROJECT_DIR$/.idea/HyperSkill Courses2.iml" />
     </modules>
   </component>
 </project>
