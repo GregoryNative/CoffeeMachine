@@ -13,6 +13,18 @@ public class State {
         }
     }
 
+    public State(int size, String initial) {
+        this.current = new short[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                char value = initial.charAt(i * size + j);
+                int valueToInt = value == 'O' ? 1 : value == 'X' ? 2 : 0;
+                this.current[i][j] = (short) valueToInt;
+            }
+        }
+    }
+
     public short[][] getState() {
         return this.current;
     }
@@ -32,6 +44,6 @@ public class State {
             return "X";
         }
 
-        return " ";
+        return "_";
     }
 }
