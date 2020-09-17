@@ -290,72 +290,10 @@ files:
         }
     }
   learner_created: true
-- name: src/tictactoe/Game.java
-  visible: true
-  text: |
-    package tictactoe;
-
-    public class Game {
-        private final int boardSize = 3;
-        private final short[] initialState = {
-            2, 1, 2,
-            1, 2, 1,
-            2, 2, 1
-        };
-
-        private Board board = new Board(boardSize);
-        private State state = new State(boardSize, initialState);
-
-        public void start() {
-            this.board.print(state);
-        }
-    }
-  learner_created: true
-- name: src/tictactoe/State.java
-  visible: true
-  text: |
-    package tictactoe;
-
-    public class State {
-        private short[][] current;
-
-        public State(int size, short[] initial) {
-            this.current = new short[size][size];
-
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    this.current[i][j] = initial[i * size + j];
-                }
-            }
-        }
-
-        public short[][] getState() {
-            return this.current;
-        }
-
-        public short getValue(int i, int j) {
-            return this.current[i][j];
-        }
-
-        public String getValueString(int i, int j) {
-            int value = this.getValue(i, j);
-
-            if (value == 1) {
-                return "O";
-            }
-
-            if (value == 2) {
-                return "X";
-            }
-
-            return " ";
-        }
-    }
-  learner_created: true
 feedback_link: https://hyperskill.org/projects/48/stages/256/implement
 status: Solved
 feedback:
   message: Congratulations! Continue on <a href="https://hyperskill.org/projects/48/stages/256/implement">JetBrains
     Academy</a>
   time: Sun, 06 Sep 2020 18:20:30 UTC
-record: -1
+record: 2

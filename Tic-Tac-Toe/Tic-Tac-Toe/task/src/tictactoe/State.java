@@ -1,36 +1,42 @@
 package tictactoe;
 
 public class State {
-    private short[][] current;
+    public enum Status {
+        NOT_FINISHED,
+        DRAW,
+        X_WINS,
+        O_WINS,
+        IMPOSSIBLE,
+    }
+
+    private int size;
+    private short[] current;
 
     public State(int size, short[] initial) {
-        this.current = new short[size][size];
+        this.size = size;
+        this.current = new short[size];
 
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                this.current[i][j] = initial[i * size + j];
-            }
+            this.current[i] = initial[i];
         }
     }
 
     public State(int size, String initial) {
-        this.current = new short[size][size];
+        this.current = new short[size];
 
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                char value = initial.charAt(i * size + j);
-                int valueToInt = value == 'O' ? 1 : value == 'X' ? 2 : 0;
-                this.current[i][j] = (short) valueToInt;
-            }
+            char value = initial.charAt(i * size + j);
+            int valueToInt = value == 'O' ? 1 : value == 'X' ? 2 : 0;
+            this.current[i] = (short) valueToInt;
         }
     }
 
-    public short[][] getState() {
+    public short[] getState() {
         return this.current;
     }
 
     public short getValue(int i, int j) {
-        return this.current[i][j];
+        return this.current[i * size + j];
     }
 
     public String getValueString(int i, int j) {
@@ -45,5 +51,52 @@ public class State {
         }
 
         return "_";
+    }
+//
+//    public boolean isGameFinished() {
+//
+//    }
+    public static final int[][] winConditions = {
+        { 0, 1, 2 },
+        { 3, 4, 5 },
+        { 6, 7, 8 },
+        { 0, 3, 6 },
+        { 1, 4, 7 },
+        { 2, 5, 8 },
+        { 0, 4, 8 },
+        { 2, 4, 6 }
+    };
+
+    public Status getStateStatus() {
+        int countO = 0;
+        int countX = 0;
+        int N = this.size;
+
+        for (int i = 0; i < N; i++) {
+            short value = this.current[i];
+
+            if (value == 1) {
+                countO++;
+            }
+
+            if (value == 2) {
+                countX++;
+            }
+        }
+
+        if (countO > countX + 1 || countX > countO + 1) {
+            return Status.IMPOSSIBLE;
+        }
+
+        boolean rowX = false;
+        boolean rowO = false;
+
+        for (int i = 0; i < winConditions.length; i++) {
+
+        }
+
+
+
+        return Status.DRAW;
     }
 }
