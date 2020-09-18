@@ -10,33 +10,29 @@ public class State {
     }
 
     private int size;
-    private short[] current;
-
-    public State(int size, short[] initial) {
-        this.size = size;
-        this.current = new short[size];
-
-        for (int i = 0; i < size; i++) {
-            this.current[i] = initial[i];
-        }
-    }
+    private short[][] current;
 
     public State(int size, String initial) {
-        this.current = new short[size];
+        this.size = size;
+        this.current = new short[size][size];
 
         for (int i = 0; i < size; i++) {
-            char value = initial.charAt(i * size + j);
-            int valueToInt = value == 'O' ? 1 : value == 'X' ? 2 : 0;
-            this.current[i] = (short) valueToInt;
+            for (int j = 0; j < size; j++) {
+                char value = initial.charAt(i * size + j);
+                int valueToInt = value == 'O' ? 1 : value == 'X' ? 2 : 0;
+                this.current[i][j] = (short) valueToInt;
+            }
         }
+
+        System.out.println(this.current);
     }
 
-    public short[] getState() {
+    public short[][] getState() {
         return this.current;
     }
 
     public short getValue(int i, int j) {
-        return this.current[i * size + j];
+        return this.current[i][j];
     }
 
     public String getValueString(int i, int j) {
@@ -52,10 +48,7 @@ public class State {
 
         return "_";
     }
-//
-//    public boolean isGameFinished() {
-//
-//    }
+
     public static final int[][] winConditions = {
         { 0, 1, 2 },
         { 3, 4, 5 },
@@ -70,17 +63,20 @@ public class State {
     public Status getStateStatus() {
         int countO = 0;
         int countX = 0;
+        boolean NOT_FINISHED = false;
         int N = this.size;
 
         for (int i = 0; i < N; i++) {
-            short value = this.current[i];
+            for (int j = 0; j < N; j++) {
+                short value = this.current[i][j];
 
-            if (value == 1) {
-                countO++;
-            }
-
-            if (value == 2) {
-                countX++;
+                if (value == 1) {
+                    countO++;
+                } else if (value == 2) {
+                    countX++;
+                } else {
+                    NOT_FINISHED = true;
+                }
             }
         }
 
@@ -92,11 +88,46 @@ public class State {
         boolean rowO = false;
 
         for (int i = 0; i < winConditions.length; i++) {
+            int[] condition = winConditions[i];
 
+            short first = getValueByIndex(condition[0]);
+            short second = getValueByIndex(condition[1]);
+            short third = getValueByIndex(condition[2]);
+
+            if (first == second && second == third) {
+                if (first == 2) {
+                    rowX = true;
+                }
+
+                if (first == 1) {
+                    rowO = true;
+                }
+            }
         }
 
+        if (rowO && rowX) {
+            return Status.IMPOSSIBLE;
+        }
 
+        if (rowX) {
+            return Status.X_WINS;
+        }
+
+        if (rowO) {
+            return Status.O_WINS;
+        }
+
+        if (NOT_FINISHED) {
+            return Status.NOT_FINISHED;
+        }
 
         return Status.DRAW;
+    }
+
+    public short getValueByIndex(int index) {
+        int i = Math.round(index / size);
+        int j = index % size;
+
+        return this.getValue(i, j);
     }
 }
