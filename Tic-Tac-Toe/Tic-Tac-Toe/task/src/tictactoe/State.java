@@ -23,8 +23,6 @@ public class State {
                 this.current[i][j] = (short) valueToInt;
             }
         }
-
-        System.out.println(this.current);
     }
 
     public short[][] getState() {
@@ -33,6 +31,14 @@ public class State {
 
     public short getValue(int i, int j) {
         return this.current[i][j];
+    }
+
+    public void setValueTo(int value, int i, int j) throws OccupiedException {
+        if (this.current[i][j] == 1 || this.current[i][j] == 2) {
+            throw new OccupiedException();
+        }
+
+        this.current[i][j] = (short) value;
     }
 
     public String getValueString(int i, int j) {

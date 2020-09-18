@@ -305,6 +305,51 @@ files:
         }
     }
   learner_created: false
+- name: src/tictactoe/Board.java
+  visible: true
+  text: |
+    package tictactoe;
+
+    public class Board {
+        private int size;
+
+        public Board(int size) {
+            this.size = size;
+        }
+
+        public void print(State state) {
+            printDivider();
+            for (int i = 0; i < size; i++) {
+                printLine(i, state);
+            }
+            printDivider();
+        }
+
+        void printLine(int line, State state) {
+            System.out.print("| ");
+            for (int i = 0; i < size; i++) {
+                System.out.print(state.getValueString(line, i));
+                System.out.print(" ");
+            }
+            System.out.print("|");
+            System.out.println();
+        }
+
+        void printDivider() {
+            System.out.println("---------");
+        }
+    }
+  learner_created: true
+- name: src/tictactoe/OccupiedException.java
+  visible: true
+  learner_created: true
+- name: src/tictactoe/CoordinateValueException.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/48/stages/258/implement
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/48/stages/258/implement">JetBrains
+    Academy</a>
+  time: Fri, 18 Sep 2020 17:19:16 UTC
 record: -1
