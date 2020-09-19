@@ -9,46 +9,59 @@ public class State {
         IMPOSSIBLE,
     }
 
-    private int size;
-    private short[][] current;
+    public enum Seed {
+        EMPTY,
+        CROSS,
+        NOUGHT
+    }
 
-    public State(int size, String initial) {
+    private int size;
+    private Seed[][] current;
+
+    public State(int size) {
         this.size = size;
-        this.current = new short[size][size];
+        this.current = new Seed[size][size];
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                char value = initial.charAt(i * size + j);
-                int valueToInt = value == 'O' ? 1 : value == 'X' ? 2 : 0;
-                this.current[i][j] = (short) valueToInt;
+                this.current[i][j] = Seed.EMPTY;
             }
         }
     }
 
-    public short[][] getState() {
-        return this.current;
+    public State(int size, String initial) {
+        this.size = size;
+        this.current = new Seed[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                char value = initial.charAt(i * size + j);
+                Seed seedValue = value == 'O' ? Seed.NOUGHT : value == 'X' ? Seed.CROSS : Seed.EMPTY;
+                this.current[i][j] = seedValue;
+            }
+        }
     }
 
-    public short getValue(int i, int j) {
+    public Seed getValue(int i, int j) {
         return this.current[i][j];
     }
 
-    public void setValueTo(int value, int i, int j) throws OccupiedException {
-        if (this.current[i][j] == 1 || this.current[i][j] == 2) {
+    public void setValueTo(Seed value, int i, int j) throws OccupiedException {
+        if (this.current[i][j] == Seed.NOUGHT || this.current[i][j] == Seed.CROSS) {
             throw new OccupiedException();
         }
 
-        this.current[i][j] = (short) value;
+        this.current[i][j] = value;
     }
 
     public String getValueString(int i, int j) {
-        int value = this.getValue(i, j);
+        Seed value = this.getValue(i, j);
 
-        if (value == 1) {
+        if (value == Seed.NOUGHT) {
             return "O";
         }
 
-        if (value == 2) {
+        if (value == Seed.CROSS) {
             return "X";
         }
 
@@ -74,11 +87,11 @@ public class State {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                short value = this.current[i][j];
+                Seed value = this.current[i][j];
 
-                if (value == 1) {
+                if (value == Seed.NOUGHT) {
                     countO++;
-                } else if (value == 2) {
+                } else if (value == Seed.CROSS) {
                     countX++;
                 } else {
                     NOT_FINISHED = true;
@@ -96,16 +109,16 @@ public class State {
         for (int i = 0; i < winConditions.length; i++) {
             int[] condition = winConditions[i];
 
-            short first = getValueByIndex(condition[0]);
-            short second = getValueByIndex(condition[1]);
-            short third = getValueByIndex(condition[2]);
+            Seed first = getValueByIndex(condition[0]);
+            Seed second = getValueByIndex(condition[1]);
+            Seed third = getValueByIndex(condition[2]);
 
             if (first == second && second == third) {
-                if (first == 2) {
+                if (first == Seed.CROSS) {
                     rowX = true;
                 }
 
-                if (first == 1) {
+                if (first == Seed.NOUGHT) {
                     rowO = true;
                 }
             }
@@ -130,7 +143,7 @@ public class State {
         return Status.DRAW;
     }
 
-    public short getValueByIndex(int index) {
+    public Seed getValueByIndex(int index) {
         int i = Math.round(index / size);
         int j = index % size;
 

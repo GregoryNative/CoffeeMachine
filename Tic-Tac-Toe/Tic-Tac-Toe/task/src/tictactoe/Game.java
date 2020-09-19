@@ -3,6 +3,8 @@ package tictactoe;
 import java.util.Map;
 import java.util.Scanner;
 
+import tictactoe.State.*;
+
 public class Game {
     private final int boardSize = 3;
 
@@ -10,33 +12,47 @@ public class Game {
     private State state;
     private Scanner scanner;
 
+    private Seed currentPlayer = Seed.CROSS;
+    private Status currentState = Status.NOT_FINISHED;
+
     Game(String initialState, Scanner scanner) {
         this.state = new State(boardSize, initialState);
+        this.scanner = scanner;
+    }
+
+    Game(Scanner scanner) {
+        this.state = new State(boardSize);
         this.scanner = scanner;
     }
 
     public void start() {
         this.board.print(state);
 
-        this.askCoordinates();
+        do {
+            this.askCoordinates();
+            currentState = this.state.getStateStatus();
+        } while (currentState == Status.NOT_FINISHED);
+
+        this.analyze();
     }
 
     private void askCoordinates() {
-        Main.print("Enter the coordinates: ");
+        this.print("Enter the coordinates: ");
 
         try {
-            int x = Integer.parseInt(Main.askString(scanner));
-            int y = Integer.parseInt(Main.askString(scanner));
+            int x = Integer.parseInt(this.askString(scanner));
+            int y = Integer.parseInt(this.askString(scanner));
 
-            this.setX(x, y);
+            this.setSeedToCoordinate(currentPlayer, x, y);
+            currentPlayer = currentPlayer == Seed.CROSS ? Seed.NOUGHT : Seed.CROSS;
         } catch (NumberFormatException exception) {
-            Main.println("You should enter numbers!");
+            this.println("You should enter numbers!");
             this.askCoordinates();
         } catch (OccupiedException exception) {
-            Main.println("This cell is occupied! Choose another one!");
+            this.println("This cell is occupied! Choose another one!");
             this.askCoordinates();
         } catch (CoordinateValueException exception) {
-            Main.println("Coordinates should be from 1 to 3!");
+            this.println("Coordinates should be from 1 to 3!");
             this.askCoordinates();
         }
     }
@@ -53,19 +69,19 @@ public class Game {
         "33", new int[]{0, 2}
     );
 
-    public void setX(int x, int y) throws OccupiedException, CoordinateValueException {
-        if (x > boardSize || y > boardSize) {
+    public void setSeedToCoordinate(Seed seed, int x, int y) throws OccupiedException, CoordinateValueException {
+        if (x > boardSize || x < 1 || y > boardSize || y < 1) {
             throw new CoordinateValueException();
         }
 
         int[] coordinates = TableOfIndexes.get("" + x + y);
 
-        this.state.setValueTo(2, coordinates[0], coordinates[1]);
+        this.state.setValueTo(seed, coordinates[0], coordinates[1]);
         this.board.print(state);
     }
 
     public void analyze() {
-        State.Status status = this.state.getStateStatus();
+        Status status = this.state.getStateStatus();
 
         switch (status) {
             case NOT_FINISHED:
@@ -86,7 +102,15 @@ public class Game {
         }
     }
 
+    private String askString(Scanner scanner) {
+        return scanner.next();
+    }
+
     private void print(String str) {
+        System.out.print(str);
+    }
+
+    private void println(String str) {
         System.out.println(str);
     }
 }
